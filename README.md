@@ -2,102 +2,97 @@
 ### Built with Google Agent Development Kit (ADK)
 
 This repository contains our complete submission for the **Kaggle Agents Intensive – Capstone Project**.  
-It showcases a production-grade **multi-agent system** for optimizing supply chain logistics using **Google ADK**, including:
+It showcases a production-grade **multi-agent AI system** built using **Google ADK** to optimize real-world supply chain workflows using:
 
-- Multi-agent orchestration (Sequential, Parallel, Loop patterns)  
-- Session state & long-term memory  
-- Tool integrations (Google Search, MCP DB, Code Execution, A2A protocol)  
-- Long-Running Operations (LRO)  
-- Agent-to-Agent federated architecture  
-- Full logging & persistable sessions  
+- Multi-agent orchestration (Sequential, Parallel & Loop patterns)
+- Session state + long-term memory
+- Tool integrations (Google Search, MCP Database, Code Execution)
+- LRO (Long Running Operations) approval mechanism
+- Agent-to-Agent (A2A) federated communication
+- Persisted sessions with SQLite databases
+- Full debugging & observability
 
 ---
 
 # 📂 Repository Structure
 
-### **Core Files**
-
-| File | Purpose |
-|------|---------|
-| [`Agentic_AI.ipynb`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/Agentic_AI.ipynb) | Main notebook containing the entire multi-agent implementation. |
+### **Core Project Files**
+| File | Description |
+|------|-------------|
+| [`Agentic_AI.ipynb`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/Agentic_AI.ipynb) | Main notebook containing complete multi-agent implementation. |
 | [`LICENSE`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/LICENSE) | Open-source license. |
-| `README.md` | Project documentation (this file). |
+| `README.md` | (This file) Project documentation. |
 
 ---
 
-### **Supporting System Files (for ADK Session, A2A, Memory, MCP)**
+### **Supporting Runtime Files (Required for Agent Execution)**
 
-| File | Description |
-|------|-------------|
-| [`mock_agent_card.json`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/mock_agent_card.json) | Mock Agent Card used by RemoteA2aAgent for federated A2A communication. |
-| [`supply_chain_adk.db`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/supply_chain_adk.db) | ADK session database (session state). |
-| [`supply_chain_obs.db`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/supply_chain_obs.db) | Observability + logging persistent DB. |
-| [`supply_chain_ultimate.db`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/supply_chain_ultimate.db) | Final consolidated DB storing all persistent workflow state. |
+| File | Purpose |
+|------|---------|
+| [`mock_agent_card.json`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/mock_agent_card.json) | Required for A2A Remote Supplier Agent communication. |
+| [`supply_chain_adk.db`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/supply_chain_adk.db) | ADK session state storage. |
+| [`supply_chain_obs.db`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/supply_chain_obs.db) | Observability + logs + ADK event history. |
+| [`supply_chain_ultimate.db`](https://github.com/JRK-007/AI-Agents-Google-Hackathon/blob/main/supply_chain_ultimate.db) | Final consolidated state DB used during agent execution. |
+
+These files must remain in the repository root, as the ADK automatically loads them.
 
 ---
 
 # 🎯 1. Project Overview
 
-**SupplyChain-Eye** is a multi-agent AI system designed to streamline and optimize supply chain route decisions.  
-It uses **structured agent composition** (Sequential → Parallel → Loop patterns), integrates real-time search, interacts with a supplier MCP database, maintains state, and performs iterative report refinement.
+**SupplyChain-Eye** is a fully functional **multi-agent AI orchestration system** designed to analyze, optimize, and refine supply chain routes.  
+It demonstrates:
 
-The system demonstrates:
+- Supplier risk assessment & mitigation  
+- Budget and cost management  
+- Market disruption analysis (via Google Search)  
+- Route performance evaluation  
+- Alternative supplier lookup via MCP Toolset  
+- Iterative reporting with critique loops  
+- Cross-organization A2A communication (multi-agent federation)  
 
-- Supplier risk assessment  
-- Budget tracking & approvals  
-- Market disruption search  
-- Route performance analysis  
-- A2A federated supplier communication  
-- Multi-round report refinement  
-- Memory-enhanced decision making  
-
-All agents run on **Gemini 2.5 Flash-Lite**.
+The system leverages **Gemini 2.5 Flash Lite** for all LLM reasoning tasks.
 
 ---
 
 # 🧠 2. Core Features
 
-## ✔ Multi-Agent Architecture  
-The system uses **10 LlmAgents**, each performing distinct roles:
+## ✔ Multi-Agent Architecture
+The pipeline uses **10 specialized LlmAgents**:
 
-- **StrategicAnalyst** – Uses long-term memory  
-- **DataIntake** – Parses user-input route  
-- **BudgetManager** – Manages cumulative budget via session state  
-- **MarketResearch** – Web searches using Google Search Tool  
-- **RouteAnalyzer** – Internal logistics analysis  
-- **RiskManagement** – Updates supplier risk  
-- **Optimization** – MCP DB lookups for alternative suppliers  
-- **Approval** – Uses LRO to pause execution for high-cost changes  
-- **Reporting** – Generates summary reports  
-- **Critic** – Evaluates & improves report in loop mode  
-
----
-
-## ✔ Agent Patterns Implemented
-
-| Pattern | Description | Where Used |
-|--------|-------------|------------|
-| **SequentialAgent** | Executes agents in a defined order | Main Supply Chain Pipeline |
-| **ParallelAgent** | Runs MarketResearch & RouteAnalyzer simultaneously | `ParallelAnalysisTeam` |
-| **LoopAgent** | Iterative report refinement | `RefinementLoop` |
-| **Memory System** | Long-term recall | `StrategicAnalyst` |
-| **Session State** | Maintains budget & risk | BudgetManager & RiskManagement |
-| **LRO (Long-Running Op)** | Pauses for manual approvals | `Approval` agent |
+- **Data Intake**
+- **Strategic Analyst (Memory Retrieval)**
+- **Budget Manager (Session State)**
+- **Market Research (Web Search Tool)**
+- **Route Analyzer**
+- **Risk Management (Session State)**
+- **Optimization Agent (MCP Query)**
+- **Approval Agent (LRO)**
+- **Reporting Agent**
+- **Critic Agent (Loop Exit)**
 
 ---
 
-## ✔ Tools Used
+## ✔ ADK Patterns Implemented
 
-- **FunctionTool** – Budget updates, risk updates, approval logic  
-- **google_search** – External disruptions  
-- **BuiltInCodeExecutor** – Executes code securely  
-- **McpToolset** – Supplier database querying  
-- **load_memory / preload_memory** – Memory interaction  
-- **AgentTool** – A2A communication wrapper  
+| Pattern | Description | Usage |
+|--------|-------------|-------|
+| **SequentialAgent** | Ordered workflow execution | Main supply chain pipeline |
+| **ParallelAgent** | Simultaneous reasoning | Market + Route analysis |
+| **LoopAgent** | Iterative improvement cycles | Reporting ↔ Critic |
+| **Memory System** | Long-term recall | Supplier history |
+| **Session State** | Persisted variables | Budget, risk scores |
+| **LRO** | Human approval pauses | High-cost route adjustments |
 
 ---
 
-# 🏗 3. System Architecture
+## ✔ Tools Integrated
+- `FunctionTool` – Custom Python functions for risk/budget updates  
+- `google_search` – External disruption monitoring  
+- `BuiltInCodeExecutor` – Secure code execution  
+- `McpToolset` – Supplier DB communication  
+- `load_memory`, `preload_memory` – Memory agents  
+- `AgentTool` – A2A federated agent communication  
 
-### 🚀 **End-to-End Workflow**
+---
 
